@@ -1,0 +1,7 @@
+<%= simple_form_for @owner do |f| %>
+  <%= f.input :first_name, label: 'First Name' %>
+  <%= f.input :last_name, label: 'Last Name' %>
+  <%= f.input :email %>
+  <%= f.input :company %>
+  <%= f.submit 'Create Owner' %>
+<% end %>

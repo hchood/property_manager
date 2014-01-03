@@ -19,10 +19,10 @@ feature 'User records a building owner', %Q{
     visit '/'
     click_on 'Add Owner'
 
-    fill_in :first_name, with: owner.first_name
-    fill_in :last_name, with: owner.last_name
-    fill_in :email, with: owner.email
-    fill_in :company, with: owner.company
+    fill_in 'First Name', with: owner.first_name
+    fill_in 'Last Name', with: owner.last_name
+    fill_in 'Email', with: owner.email
+    fill_in 'Company', with: owner.company
     click_button 'Create Owner'
 
     # it creates the owner
