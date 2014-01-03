@@ -6,4 +6,11 @@ FactoryGirl.define do
     zip_code '02118'
     description 'Mixed commercial/residential space'
   end
+
+  factory :owner do
+    first_name 'Michael'
+    last_name 'Bluth'
+    sequence(:email) { |n| "bananastand#{n}@cornballer.com" }
+    company 'Sudden Valley Properties'
+  end
 end
