@@ -42,8 +42,44 @@ feature 'User records a building owner', %Q{
     expect(page).to have_content 'Uh oh!  We encountered a problem.'
     expect(Owner.all.count).to eq 0
 
+    # it displays error messages
+    within '.input.owner_first_name' do
+      expect(page).to have_content "can't be blank"
+    end
+
+    within '.input.owner_last_name' do
+      expect(page).to have_content "can't be blank"
+    end
+
+    within '.input.owner_email' do
+      expect(page).to have_content "can't be blank"
+    end
+
     # it renders the new owner form
     expect(page).to have_button 'Create Owner'
   end
 
+  scenario 'adds owner with already used email' do
+    existing_owner = FactoryGirl.create(:owner)
+    new_owner = FactoryGirl.build(:owner, email: existing_owner.email)
+
+    visit '/'
+    click_on 'Add Owner'
+
+    fill_in 'First Name', with: new_owner.first_name
+    fill_in 'Last Name', with: new_owner.last_name
+    fill_in 'Email', with: new_owner.email
+    fill_in 'Company', with: new_owner.company
+    click_button 'Create Owner'
+
+    # it does not create the owner
+    expect(page).to have_content 'Uh oh!  We encountered a problem.'
+    expect(Owner.all.count).to eq 1
+
+    # it displays error message
+    expect(page).to have_content 'has already been taken'
+
+    # it renders the new owner form
+    expect(page).to have_button 'Create Owner'
+  end
 end
