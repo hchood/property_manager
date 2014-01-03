@@ -8,6 +8,8 @@ class OwnersController < ApplicationController
     if @owner.save
       redirect_to new_owner_path, notice: 'Successfully recorded owner!'
     else
+      flash[:notice] = 'Uh oh!  We encountered a problem.'
+      render 'new'
     end
   end
 

@@ -33,5 +33,17 @@ feature 'User records a building owner', %Q{
     expect(page).to have_button 'Create Owner'
   end
 
-  scenario 'adds owner with missing attributes'
+  scenario 'adds owner with missing attributes' do
+    visit '/'
+    click_on 'Add Owner'
+    click_button 'Create Owner'
+
+    # it does not create the owner
+    expect(page).to have_content 'Uh oh!  We encountered a problem.'
+    expect(Owner.all.count).to eq 0
+
+    # it renders the new owner form
+    expect(page).to have_button 'Create Owner'
+  end
+
 end
