@@ -32,7 +32,7 @@ feature 'User records a building', %Q{
     click_button 'Create Building'
 
     # it creates the building
-    expect(page).to have_content 'Successfully created building.'
+    expect(page).to have_content 'Successfully recorded building!'
     expect(Building.all.count).to eq 1
 
     # it redirects to the new building page
