@@ -11,7 +11,8 @@ class BuildingsController < ApplicationController
     if @building.save
       redirect_to new_building_path, notice: 'Successfully recorded building!'
     else
-      # render 'new', notice: 'Uh oh!  We ran into some errors.'
+      flash[:notice] = 'Uh oh!  We ran into some errors.'
+      render 'new'
     end
   end
 

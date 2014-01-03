@@ -39,8 +39,37 @@ feature 'User records a building', %Q{
     expect(page).to have_button 'Create Building'
   end
 
-  scenario 'adds building with missing attributes'
+  scenario 'adds building with missing attributes' do
+  visit '/'
+    click_on 'Add Building'
 
-  scenario 'adds building with invalid state'
+    click_button 'Create Building'
+
+    # it does not creates the building
+    expect(page).to have_content 'Uh oh!  We ran into some errors.'
+    expect(Building.all.count).to eq 0
+
+    # it displays error messages
+    within '.input.building_street_address' do
+      expect(page).to have_content "can't be blank"
+    end
+
+    within '.input.building_city' do
+      expect(page).to have_content "can't be blank"
+    end
+
+    within '.input.building_state' do
+      expect(page).to have_content "can't be blank"
+    end
+
+    within '.input.building_zip_code' do
+      expect(page).to have_content "can't be blank"
+    end
+
+    # it renders the new building page again
+    expect(page).to have_button 'Create Building'
+  end
+
+  scenario 'adds building with invalid state and zip code'
 
 end
