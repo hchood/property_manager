@@ -70,6 +70,33 @@ feature 'User records a building', %Q{
     expect(page).to have_button 'Create Building'
   end
 
-  scenario 'adds building with invalid state and zip code'
+  scenario 'adds building with invalid state and zip code' do
+    building = FactoryGirl.build(:building, state: 'LM', zip_code: '1234abc')
 
+    visit '/'
+    click_on 'Add Building'
+
+    fill_in 'Street Address', with: building.street_address
+    fill_in 'City', with: building.city
+    fill_in 'State', with: building.state
+    fill_in 'Zip Code', with: building.zip_code
+    fill_in 'Description', with: building.description
+    click_button 'Create Building'
+
+    # it does not creates the building
+    expect(page).to have_content 'Uh oh!  We ran into some errors.'
+    expect(Building.all.count).to eq 0
+
+    # it displays error messages
+    within '.input.building_state' do
+      expect(page).to have_content 'is not included in the list'
+    end
+
+    within '.input.building_zip_code' do
+      expect(page).to have_content 'is invalid'
+    end
+
+    # it renders the new building page again
+    expect(page).to have_button 'Create Building'
+  end
 end
