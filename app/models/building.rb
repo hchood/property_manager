@@ -8,4 +8,12 @@ class Building < ActiveRecord::Base
   validates :zip_code, presence: :true, format: { with: /\A\d{5}\z/}
 
   belongs_to :owner
+
+  def owner_name
+    if owner.nil?
+      ""
+    else
+      owner.name
+    end
+  end
 end

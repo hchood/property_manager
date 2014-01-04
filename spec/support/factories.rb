@@ -5,6 +5,8 @@ FactoryGirl.define do
     state 'MA'
     zip_code '02118'
     description 'Mixed commercial/residential space'
+
+    association :owner
   end
 
   factory :owner do

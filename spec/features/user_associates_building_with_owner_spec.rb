@@ -25,7 +25,7 @@ feature 'User associates building with owner', %Q{
     fill_in 'State', with: building.state
     fill_in 'Zip Code', with: building.zip_code
     fill_in 'Description', with: building.description
-    select building.owner.name, from: 'Owner'
+    select building.owner_name, from: 'Owner'
     click_button 'Create Building'
   end
 

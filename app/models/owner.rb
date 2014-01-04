@@ -4,4 +4,8 @@ class Owner < ActiveRecord::Base
 
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_REGEX }
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end

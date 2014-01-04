@@ -4,5 +4,6 @@
   <%= f.input :state %>
   <%= f.input :zip_code, label: 'Zip Code' %>
   <%= f.input :description %>
+  <%= f.association :owner, collection: @owners %>
   <%= f.submit 'Create Building' %>
 <% end %>
