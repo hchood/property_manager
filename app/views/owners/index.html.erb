@@ -1,11 +1,19 @@
+<h2>All Owners</h2>
 
 <table>
   <tr>
     <th>Name</th>
+    <th>Email</th>
+    <th>Company</th>
   </tr>
 <% @owners.each do |owner| %>
 <tr>
   <td><%= owner.name %></td>
+  <td><%= owner.email %></td>
+  <td><%= owner.company %></td>
   <td><%= link_to 'Delete', owner_path(owner), method: :delete %></td>
 <% end %>
 </table>
+
+<br>
+<%= link_to 'Back', buildings_path %>

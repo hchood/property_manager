@@ -1,3 +1,5 @@
+<h2>Add New Building</h2>
+
 <%= simple_form_for @building do |f| %>
   <%= f.input :street_address, label: 'Street Address' %>
   <%= f.input :city %>
@@ -7,3 +9,6 @@
   <%= f.association :owner, collection: @owners %>
   <%= f.submit 'Create Building' %>
 <% end %>
+
+<br>
+<%= link_to 'Back', buildings_path %>
