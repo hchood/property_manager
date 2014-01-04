@@ -43,17 +43,9 @@ feature 'User records a building owner', %Q{
     expect(Owner.all.count).to eq 0
 
     # it displays error messages
-    within '.input.owner_first_name' do
-      expect(page).to have_content "can't be blank"
-    end
-
-    within '.input.owner_last_name' do
-      expect(page).to have_content "can't be blank"
-    end
-
-    within '.input.owner_email' do
-      expect(page).to have_content "can't be blank"
-    end
+    expect_blank_error_for(:first_name)
+    expect_blank_error_for(:last_name)
+    expect_blank_error_for(:email)
 
     # it renders the new owner form
     expect(page).to have_button 'Create Owner'
@@ -81,5 +73,11 @@ feature 'User records a building owner', %Q{
 
     # it renders the new owner form
     expect(page).to have_button 'Create Owner'
+  end
+
+  def expect_blank_error_for(attribute)
+    within ".input.owner_#{attribute.to_s}" do
+      expect(page).to have_content "can't be blank"
+    end
   end
 end

@@ -29,6 +29,11 @@ feature 'User associates building with owner', %Q{
     select owner.name, from: 'Owner'
     click_button 'Create Building'
 
+    # it creates the building
+    expect(page).to have_content 'Successfully recorded building!'
+    expect(Building.all.count).to eq 1
+
+    # the building has the correct associated owner
     expect(Building.first.owner_name).to eq owner.name
   end
 

@@ -40,9 +40,8 @@ feature 'User records a building', %Q{
   end
 
   scenario 'adds building with missing attributes' do
-  visit '/'
+    visit '/'
     click_on 'Add Building'
-
     click_button 'Create Building'
 
     # it does not creates the building
@@ -50,21 +49,10 @@ feature 'User records a building', %Q{
     expect(Building.all.count).to eq 0
 
     # it displays error messages
-    within '.input.building_street_address' do
-      expect(page).to have_content "can't be blank"
-    end
-
-    within '.input.building_city' do
-      expect(page).to have_content "can't be blank"
-    end
-
-    within '.input.building_state' do
-      expect(page).to have_content "can't be blank"
-    end
-
-    within '.input.building_zip_code' do
-      expect(page).to have_content "can't be blank"
-    end
+    expect_blank_error_for(:street_address)
+    expect_blank_error_for(:city)
+    expect_blank_error_for(:state)
+    expect_blank_error_for(:zip_code)
 
     # it renders the new building page again
     expect(page).to have_button 'Create Building'
@@ -98,5 +86,11 @@ feature 'User records a building', %Q{
 
     # it renders the new building page again
     expect(page).to have_button 'Create Building'
+  end
+
+  def expect_blank_error_for(attribute)
+    within ".input.building_#{attribute.to_s}" do
+      expect(page).to have_content "can't be blank"
+    end
   end
 end
