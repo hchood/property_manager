@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140104000845) do
     t.string  "state",          null: false
     t.string  "zip_code",       null: false
     t.string  "description"
-    t.integer "owner_id",       null: false
+    t.integer "owner_id"
   end
 
   create_table "owners", force: true do |t|

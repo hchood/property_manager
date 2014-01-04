@@ -1,2 +1,15 @@
+<table>
+  <tr>
+    <th>Address</th>
+    <th>Owner</th>
+  </tr>
+<% @buildings.each do |building| %>
+<tr>
+  <td><%= "#{building.street_address}, #{building.city}, #{building.state}" %></td>
+  <td><%= building.owner_name %></td>
+<% end %>
+</table>
+
 <%= link_to 'Add Building', new_building_path %>
 <%= link_to 'Add Owner', new_owner_path %>
+<%= link_to 'View Owners', owners_path %>

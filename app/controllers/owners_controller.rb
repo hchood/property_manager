@@ -1,4 +1,8 @@
 class OwnersController < ApplicationController
+  def index
+    @owners = Owner.all
+  end
+
   def new
     @owner = Owner.new
   end
@@ -10,6 +14,16 @@ class OwnersController < ApplicationController
     else
       flash[:notice] = 'Uh oh!  We encountered a problem.'
       render 'new'
+    end
+  end
+
+  def destroy
+    @owner = Owner.find(params[:id])
+    if @owner.destroy
+      redirect_to owners_path, notice: 'Owner deleted.'
+    else
+      flash[:notice] = 'Uh oh!  We encountered a problem.'
+      render 'index'
     end
   end
 

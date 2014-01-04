@@ -15,7 +15,8 @@ feature 'User associates building with owner', %Q{
 
 
   it 'creates a building with an associated owner' do
-    building = FactoryGirl.build(:building)
+    owner = FactoryGirl.create(:owner)
+    building = FactoryGirl.build(:building, owner: nil)
 
     visit '/'
     click_on 'Add Building'
@@ -25,9 +26,21 @@ feature 'User associates building with owner', %Q{
     fill_in 'State', with: building.state
     fill_in 'Zip Code', with: building.zip_code
     fill_in 'Description', with: building.description
-    select building.owner_name, from: 'Owner'
+    select owner.name, from: 'Owner'
     click_button 'Create Building'
+
+    expect(Building.first.owner_name).to eq owner.name
   end
 
-  it "deletes a building's owner when owner is deleted"
+  it "deletes a building's owner when owner is deleted" do
+    building = FactoryGirl.create(:building)
+    owner = building.owner
+
+    visit '/'
+    click_on 'View Owners'
+    click_on 'Delete'
+
+    expect(Owner.all.count).to eq 0
+    expect(Building.first.owner).to be_nil
+  end
 end

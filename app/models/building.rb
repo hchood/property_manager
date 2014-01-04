@@ -3,7 +3,6 @@ class Building < ActiveRecord::Base
 
   validates_presence_of :street_address
   validates_presence_of :city
-  validates_presence_of :owner
   validates :state, presence: :true, inclusion: { in: STATES }
   validates :zip_code, presence: :true, format: { with: /\A\d{5}\z/}
 
